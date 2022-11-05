@@ -3,6 +3,7 @@ package com.ngplus.rxjava;
 import androidx.appcompat.app.AppCompatActivity;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.observables.ConnectableObservable;
+import io.reactivex.rxjava3.subjects.AsyncSubject;
 import io.reactivex.rxjava3.subjects.BehaviorSubject;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         }
         cold.subscribe(i -> Log.i("MainActivity_rxjava","Student 2 -> "+i.toString()));*/
         /**** Observable : PublishSubject ****/
-        ReplaySubject<String> mySubject = ReplaySubject.create();
+        AsyncSubject<String> mySubject = AsyncSubject.create();
         mySubject.subscribe(i -> Log.i("MainActivity_rxjava","student 1 -> "+i));
 
         mySubject.onNext("A");
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         sleep(1000);
         mySubject.onNext("F");
         sleep(1000);
+        mySubject.onComplete();
 
     }
 
