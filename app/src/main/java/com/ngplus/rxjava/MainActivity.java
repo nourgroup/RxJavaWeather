@@ -13,18 +13,25 @@ import io.reactivex.rxjava3.subjects.BehaviorSubject;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.ngplus.rxjava.databinding.ActivityMainBinding;
 
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
+    ActivityMainBinding _binding = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        _binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(_binding.getRoot());
         /********Factory method create*********/
+        _binding.display.setText("one");
         // onComplete is automatically invoked
         Observable<Integer> testInteger = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
@@ -65,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         tab[0] = 1;tab[1] = 2;tab[2] = 3;tab[3] = 4;tab[4] = 5;
         Observable listObservable = Observable.fromArray(tab).repeat(2);
         listObservable.subscribe(ob);
+        /****/
 
     }
 
