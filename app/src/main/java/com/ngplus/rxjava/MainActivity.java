@@ -6,8 +6,10 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.ObservableEmitter;
 import io.reactivex.rxjava3.core.ObservableOnSubscribe;
 import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.observables.ConnectableObservable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.reactivex.rxjava3.subjects.AsyncSubject;
 import io.reactivex.rxjava3.subjects.BehaviorSubject;
 import io.reactivex.rxjava3.subjects.PublishSubject;
@@ -71,8 +73,15 @@ public class MainActivity extends AppCompatActivity {
         Integer tab[] = new Integer[5];
         tab[0] = 1;tab[1] = 2;tab[2] = 3;tab[3] = 4;tab[4] = 5;
         Observable listObservable = Observable.fromArray(tab).repeat(2);
-        listObservable.subscribe(ob);
-        /****/
+        //listObservable.subscribe(ob);
+        /** RXJava Threading operators | Schedulers, SubscribeOn and ObserveOn **/
+        Log.i("tuto_rxjava","test");
+        Observable.just(1,2,3,4)
+                .doOnNext(e -> Log.i("tuto_rxjava","current Thread: "+Thread.currentThread().getName()+" send : "+e.toString()))
+                .subscribeOn(Schedulers.computation())
+                .map(a -> a*2)
+                .observeOn(Schedulers.io())
+                .subscribe(r -> Log.i("tuto_rxjava","current Thread: "+Thread.currentThread().getName()+" received : "+r.toString()));
 
     }
 
