@@ -1,7 +1,12 @@
 package com.ngplus.rxjava;
 
 import androidx.appcompat.app.AppCompatActivity;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableEmitter;
+import io.reactivex.rxjava3.core.ObservableOnSubscribe;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.observables.ConnectableObservable;
 import io.reactivex.rxjava3.subjects.AsyncSubject;
 import io.reactivex.rxjava3.subjects.BehaviorSubject;
@@ -19,34 +24,47 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Observable<Long> test = Observable.intervalRange(0,5,0,1, TimeUnit.SECONDS);
-        /*ConnectableObservable<Long> cold = ConnectableObservable.intervalRange(0,5,0,1, TimeUnit.SECONDS).publish();
-        cold.connect();
-        cold.subscribe(i -> Log.i("MainActivity_rxjava","student 1 -> "+i.toString()));
+        /********Factory method create*********/
+        // onComplete is automatically invoked
+        Observable<Integer> testInteger = Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Throwable {
+                for(int i=0;i<10;i++){
+                    emitter.onNext(i);
+                }
+                emitter.onComplete();
+            }
+        });
+        /********Factory method just*********/
+        // onComplete is automatically invoked when we use just unlike the create()
+        Observable<Integer> testInteger2 = Observable.just(0,1,2);
+        Observer ob = new Observer() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.i("tuto_rxjava","onSubscribe");
+            }
 
-        try{
-            Thread.sleep(2000);
-        }catch(Exception ex){
-        }
-        cold.subscribe(i -> Log.i("MainActivity_rxjava","Student 2 -> "+i.toString()));*/
-        /**** Observable : PublishSubject ****/
-        AsyncSubject<String> mySubject = AsyncSubject.create();
-        mySubject.subscribe(i -> Log.i("MainActivity_rxjava","student 1 -> "+i));
+            @Override
+            public void onNext(@androidx.annotation.NonNull Object o) {
+                Log.i("tuto_rxjava","onNext"+ o);
+            }
 
-        mySubject.onNext("A");
-        sleep(1000);
-        mySubject.onNext("B");
-        sleep(1000);
-        mySubject.onNext("C");
-        sleep(1000);
-        mySubject.onNext("D");
-        sleep(1000);
-        mySubject.subscribe(i -> Log.i("MainActivity_rxjava","student 2 -> "+i));
-        mySubject.onNext("E");
-        sleep(1000);
-        mySubject.onNext("F");
-        sleep(1000);
-        mySubject.onComplete();
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.i("tuto_rxjava","onError");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.i("tuto_rxjava","onComplete");
+            }
+        };
+        //testInteger.subscribe(ob);
+        /********Factory method create*********/
+        Integer tab[] = new Integer[5];
+        tab[0] = 1;tab[1] = 2;tab[2] = 3;tab[3] = 4;tab[4] = 5;
+        Observable listObservable = Observable.fromArray(tab).repeat(2);
+        listObservable.subscribe(ob);
 
     }
 
