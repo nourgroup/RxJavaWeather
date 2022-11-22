@@ -27,17 +27,18 @@ class DataRepository constructor(var mDataWeatherService : DataWeatherService) {
 
         data.enqueue(object : Callback<WeatherAPI>{
             override fun onFailure(call: Call<WeatherAPI>, t: Throwable) {
-                responseWeather.status = ResponseStatus.FAILURE
-                responseWeather.weatherResponse = WeatherAPIModel()
+                //responseWeather.status = ResponseStatus.FAILURE
+                //responseWeather.weatherResponse = WeatherAPIModel()
                 Log.i("tuto_rxjava", "error ${ t.message }")
             }
 
             override fun onResponse(call: Call<WeatherAPI>, response: Response<WeatherAPI>) {
-                if(response.isSuccessful){
+                /*if(response.isSuccessful){
                     responseWeather.status = ResponseStatus.SUCCESS
                     responseWeather.weatherResponse.timezone = response.body()!!.timezone
                     responseWeather.weatherResponse.currently = response.body()!!.currently
-                }
+                }*/
+                Log.i("tuto_rxjava", "success !!")
             }
         })
         Log.i("tuto_rxjava", "${javaClass.name} response : ${responseWeather.status}")
