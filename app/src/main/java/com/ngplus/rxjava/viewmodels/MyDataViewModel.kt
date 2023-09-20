@@ -20,9 +20,11 @@ class MyDataViewModel : ViewModel() {
     private val mUCWeatherDisplay = UCWeatherDisplay(DataRepository(WebService.getInstance()))
 
     fun getWeather(longitude : Double, latitude : Double) {
-        var observableWeather = mUCWeatherDisplay.getWeather(longitude, latitude)
+        val observableWeather = mUCWeatherDisplay.getWeather(longitude, latitude)
         observableWeather
             .subscribeOn(Schedulers.io())
-            .subscribe{res -> weatherState.postValue(res)}
+            .subscribe{
+                    res -> weatherState.postValue(res)
+            }
     }
 }

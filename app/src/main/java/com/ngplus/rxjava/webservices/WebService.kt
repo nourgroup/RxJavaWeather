@@ -10,7 +10,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object WebService {
     //https://api.darksky.net/forecast/e244cdbd70b7eda06965b78ed19bad1d/37.8267,-122.4233
-    val BASE_URL = "https://api.darksky.net/forecast/${BuildConfig.DARKSKY_KEY}/"
+    // ${BuildConfig.DARKSKY_KEY}
+    val BASE_URL = "https://api.darksky.net/forecast/e244cdbd70b7eda06965b78ed19bad1d/"
     lateinit var service: DataWeatherService
 
 
@@ -23,7 +24,7 @@ object WebService {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            //.addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .client(client)
             .build()
 

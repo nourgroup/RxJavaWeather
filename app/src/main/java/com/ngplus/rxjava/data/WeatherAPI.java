@@ -8,4 +8,12 @@ public class WeatherAPI {
     @Nullable
     public Currently currently;
 
+    public WeatherAPI(){
+
+    }
+
+    public WeatherAPI(@Nullable String timezone, @Nullable Currently currently) {
+        this.timezone = timezone;
+        this.currently = currently;
+    }
 }
