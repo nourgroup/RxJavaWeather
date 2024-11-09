@@ -1,6 +1,6 @@
 package com.ngplus.rxjava.models;
 
-import com.ngplus.rxjava.data.Currently;
+import com.ngplus.rxjava.webservices.data.Currently;
 
 public class WeatherAPIModel {
     public float latitude;

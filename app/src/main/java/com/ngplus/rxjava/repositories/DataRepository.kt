@@ -1,21 +1,15 @@
 package com.ngplus.rxjava.repositories
 
 import android.util.Log
-import com.ngplus.rxjava.data.Currently
-import com.ngplus.rxjava.data.WeatherAPI
+import com.ngplus.rxjava.webservices.data.WeatherAPI
 import com.ngplus.rxjava.models.ResponseStatus
 import com.ngplus.rxjava.models.ResponseWeatherAPI
 import com.ngplus.rxjava.models.WeatherAPIModel
 import com.ngplus.rxjava.webservices.DataWeatherService
-import com.ngplus.rxjava.webservices.WebService
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import io.reactivex.rxjava3.subjects.PublishSubject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class DataRepository constructor(var mDataWeatherService : DataWeatherService) {
     var responseWeather: ResponseWeatherAPI<WeatherAPIModel> = ResponseWeatherAPI(WeatherAPIModel())

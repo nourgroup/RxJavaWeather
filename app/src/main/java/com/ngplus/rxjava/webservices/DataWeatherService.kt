@@ -1,17 +1,16 @@
 package com.ngplus.rxjava.webservices
 
 
-import com.ngplus.rxjava.data.WeatherAPI
+import com.ngplus.rxjava.webservices.data.WeatherAPI
 import io.reactivex.rxjava3.core.Observable
-import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 interface DataWeatherService {
-    @GET("{longitude},{latitude}")
+    @GET("v1/forecast?hourly=temperature_2m,weathercode,relativehumidity_2m,windspeed_10m,pressure_msl")
     fun getWeather(
-        @Path("longitude") longitude: Double?,
-        @Path("latitude") latitude: Double?
+        @Query("longitude") longitude: Double?,
+        @Query("latitude") latitude: Double?
     ): Observable<WeatherAPI>
 }

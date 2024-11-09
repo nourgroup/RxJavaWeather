@@ -1,4 +1,4 @@
-package com.ngplus.rxjava.data;
+package com.ngplus.rxjava.webservices.data;
 
 import androidx.annotation.Nullable;
 

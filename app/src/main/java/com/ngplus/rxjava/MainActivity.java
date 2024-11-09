@@ -32,12 +32,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         _binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(_binding.getRoot());
-        Log.i("tuto_rxjava", "before ViewModelProvider");
         mMyDataViewModel = new ViewModelProvider(this).get(MyDataViewModel.class);
-        Log.i("tuto_rxjava", "after ViewModelProvider");
         /********Factory method create*********/
         // onComplete is automatically invoked
-        Observable<Integer> testInteger = Observable.create(new ObservableOnSubscribe<Integer>() {
+        /*Observable<Integer> testInteger = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Throwable {
                 for(int i=0;i<10;i++){
@@ -45,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 emitter.onComplete();
             }
-        });
+        });*/
         /********Factory method just*********/
         // onComplete is automatically invoked when we use just unlike the create()
-        Observable<Integer> testInteger2 = Observable.just(0,1,2);
+        /*Observable<Integer> testInteger2 = Observable.just(0,1,2);
         Observer ob = new Observer() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
@@ -69,12 +67,12 @@ public class MainActivity extends AppCompatActivity {
             public void onComplete() {
                 Log.i("tuto_rxjava","onComplete");
             }
-        };
+        };*/
         //testInteger.subscribe(ob);
         /*****************Factory method create******************/
-        Integer tab[] = new Integer[5];
+        /*Integer tab[] = new Integer[5];
         tab[0] = 1;tab[1] = 2;tab[2] = 3;tab[3] = 4;tab[4] = 5;
-        Observable listObservable = Observable.fromArray(tab).repeat(2);
+        Observable listObservable = Observable.fromArray(tab).repeat(2);*/
         //listObservable.subscribe(ob);
         /** RXJava Threading operators | Schedulers, SubscribeOn and ObserveOn **/
         /*Log.i("tuto_rxjava","test");
@@ -86,12 +84,11 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(r -> Log.i("tuto_rxjava","current Thread: "+Thread.currentThread().getName()+" received : "+r.toString()));
                 */
         /**********************RXJava operators | map, flatMap, debounce, filter and more**********************/
-        //37.8267,-122.4233
         mMyDataViewModel.getWeather(37.8267,-122.4233);
         mMyDataViewModel.getWeatherState().observe(this, (a) -> {
             Log.i("tuto_rxjava","MainActivity Response : "+a.status.toString());
         });
-        Observable observableText = Observable.create(new ObservableOnSubscribe<Object>() {
+        /*Observable observableText = Observable.create(new ObservableOnSubscribe<Object>() {
 
             @Override
             public void subscribe(@NonNull ObservableEmitter<Object> emitter) throws Throwable {
@@ -124,8 +121,10 @@ public class MainActivity extends AppCompatActivity {
             .debounce(3,TimeUnit.SECONDS)
             .distinctUntilChanged();
         observableText.subscribe(e -> Log.i("tuto_rxjava","downstream:"+e.toString()));
+         */
     }
 
+    /*
     Observable callAPI(int ms){
         Observable observable = Observable.just("api was called");
         observable.subscribe(e -> {
@@ -138,4 +137,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return observable;
     }
+    */
 }

@@ -11,7 +11,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 object WebService {
     //https://api.darksky.net/forecast/e244cdbd70b7eda06965b78ed19bad1d/37.8267,-122.4233
     // ${BuildConfig.DARKSKY_KEY}
-    val BASE_URL = "https://api.darksky.net/forecast/e244cdbd70b7eda06965b78ed19bad1d/"
+    // migration
+    //v1/forecast?hourly=temperature_2m,weathercode,relativehumidity_2m,windspeed_10m,pressure_msl
+    val BASE_URL = "https://api.open-meteo.com/"
     lateinit var service: DataWeatherService
 
 
